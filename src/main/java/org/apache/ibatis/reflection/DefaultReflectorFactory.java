@@ -18,6 +18,11 @@ package org.apache.ibatis.reflection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+/**
+ * The default implementation of {@code ReflectorFactory}.
+ *
+ * @author Administrator
+ */
 public class DefaultReflectorFactory implements ReflectorFactory {
 	/**
 	 * 是否缓存

@@ -24,6 +24,7 @@ import org.apache.ibatis.reflection.MetaClass;
 import org.apache.ibatis.reflection.ReflectorFactory;
 
 /**
+ * 根据Object对象与其MetaClass元数据对象提供对该Object对象的一些操作
  * @author Clinton Begin
  */
 public interface ObjectWrapper {

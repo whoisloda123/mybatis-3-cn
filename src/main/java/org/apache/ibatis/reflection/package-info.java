@@ -15,5 +15,6 @@
  */
 /**
  * Reflection utils.
+ * 对 Java 原生的反射进行良好的封装，进行了一系列的优化，提供更加简洁易用的 API 方便使用
  */
 package org.apache.ibatis.reflection;

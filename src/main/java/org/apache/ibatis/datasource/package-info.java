@@ -15,5 +15,6 @@
  */
 /**
  * Base package for Datasources
+ * 提供相应的 DataSource 数据源实现，支持与第三方数据源的继承
  */
 package org.apache.ibatis.datasource;

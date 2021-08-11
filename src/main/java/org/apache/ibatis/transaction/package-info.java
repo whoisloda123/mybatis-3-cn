@@ -15,5 +15,6 @@
  */
 /**
  * Base package for transactions.
+ * 对数据库中的事务进行了抽象，提供事务接口的简单实现
  */
 package org.apache.ibatis.transaction;

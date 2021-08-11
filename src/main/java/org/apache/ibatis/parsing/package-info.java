@@ -15,5 +15,9 @@
  */
 /**
  * Parsing utils
+ * 初始化时解析mybatis-config.xml配置文件、为处理动态SQL语句中占位符提供支持
+ * 将XML文件解析成XPathParser对象，其中会解析成对应的Document对象，内部的Properties对象存储动态变量的值
+ * PropertyParser用于解析XML文件中的动态值，根据GenericTokenParser获取动态属性的名称（例如${name}->name）
+ * ，然后通过VariableTokenHandler根据Properties对象获取到动态属性（name）对应的值
  */
 package org.apache.ibatis.parsing;

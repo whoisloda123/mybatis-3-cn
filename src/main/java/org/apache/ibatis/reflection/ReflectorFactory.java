@@ -15,6 +15,10 @@
  */
 package org.apache.ibatis.reflection;
 
+/**
+ * Reflector的工厂接口，用于创建和缓存 {@link Reflector} 对象
+ * @author Administrator
+ */
 public interface ReflectorFactory {
 
 	/**

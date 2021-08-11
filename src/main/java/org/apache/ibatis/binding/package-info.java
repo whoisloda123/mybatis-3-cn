@@ -15,5 +15,6 @@
  */
 /**
  * Bings mapper interfaces with mapped statements
+ * 提供 Mapper 接口与 XML 映射文件进行关联的支持
  */
 package org.apache.ibatis.binding;

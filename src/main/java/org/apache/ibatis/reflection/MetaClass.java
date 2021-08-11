@@ -27,7 +27,8 @@ import org.apache.ibatis.reflection.invoker.MethodInvoker;
 import org.apache.ibatis.reflection.property.PropertyTokenizer;
 
 /**
- * 类的元数据，基于 Reflector 和 PropertyTokenizer ，提供对指定类的各种骚操作。
+ * Class类的元数据，包装 {@link Reflector}，基于 {@link PropertyTokenizer}（分词器）提供对Class类的元数据一些操作，
+ * 可以理解成对Reflector操作的进一步增强.
  *
  * @author Clinton Begin
  */

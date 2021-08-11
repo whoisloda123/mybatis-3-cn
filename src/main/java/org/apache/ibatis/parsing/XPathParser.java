@@ -41,6 +41,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 /**
+ * 基于Java XPath 解析器，用于解析MyBatis的mybatis-config.xml和**Mapper.xml等XML配置文件
  * @author Clinton Begin
  * @author Kazuki Shimizu
  */

@@ -15,5 +15,6 @@
  */
 /**
  * Type handlers.
+ * 提供别名机制，JDBC Type 和 Java Type 之间的转换
  */
 package org.apache.ibatis.type;

@@ -15,5 +15,6 @@
  */
 /**
  * Base package for exceptions.
+ * 定义 MyBatis 自己的 Exception
  */
 package org.apache.ibatis.exceptions;
