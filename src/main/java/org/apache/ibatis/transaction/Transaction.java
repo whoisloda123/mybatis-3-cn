@@ -1,5 +1,5 @@
-/**
- *    Copyright 2009-2019 the original author or authors.
+/*
+ *    Copyright 2009-2021 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ public interface Transaction {
 	/**
 	 * 获得连接
 	 * Retrieve inner database connection.
-	 * 
+	 *
 	 * @return DataBase connection
 	 * @throws SQLException
 	 */
@@ -38,7 +38,7 @@ public interface Transaction {
 	/**
 	 * 事务提交
 	 * Commit inner database connection.
-	 * 
+	 *
 	 * @throws SQLException
 	 */
 	void commit() throws SQLException;
@@ -46,7 +46,7 @@ public interface Transaction {
 	/**
 	 * 事务回滚
 	 * Rollback inner database connection.
-	 * 
+	 *
 	 * @throws SQLException
 	 */
 	void rollback() throws SQLException;
@@ -54,7 +54,7 @@ public interface Transaction {
 	/**
 	 * 关闭连接
 	 * Close inner database connection.
-	 * 
+	 *
 	 * @throws SQLException
 	 */
 	void close() throws SQLException;
@@ -62,7 +62,7 @@ public interface Transaction {
 	/**
 	 * 获得事务超时时间
 	 * Get transaction timeout if set.
-	 * 
+	 *
 	 * @throws SQLException
 	 */
 	Integer getTimeout() throws SQLException;

@@ -1,5 +1,5 @@
-/**
- *    Copyright 2009-2017 the original author or authors.
+/*
+ *    Copyright 2009-2021 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -42,9 +42,9 @@ public class PropertyTokenizer implements Iterator<PropertyTokenizer> {
 
 	/**
 	 * 例如Mapper文件中的：map[qm].user，
-	 * name -> map 
-	 * indexedName -> map[qm] 
-	 * index -> qm 
+	 * name -> map
+	 * indexedName -> map[qm]
+	 * index -> qm
 	 * children -> user
 	 */
 	public PropertyTokenizer(String fullname) {
