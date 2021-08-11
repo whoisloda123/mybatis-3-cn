@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liucan.loda.ActorMapper">
+    <!-- 开启本mapper下的namespace的二级缓存，默认使用的是mybatis提供的PerpetualCache -->
+    <cache/>
+
+    <resultMap id="actorResultMap" type="actor">
+        <id column="actor_id" property="actorId"/>
+        <result column="first_name" property="firstName"/>
+        <result column="last_name" property="lastName"/>
+        <result column="last_update" property="lastUpdate" javaType="java.time.LocalDateTime"/>
+    </resultMap>
+
+    <sql id="whereSql">
+        first_name
+        like '%${value}%'
+    </sql>
+
+    <!-- 根据id获取用户信息 useCache=false当前查询禁用二级缓存 flushCache是否查询二级缓存-->
+    <select id="findUserById" parameterType="java.lang.Integer" resultMap="actorResultMap" useCache="false">
+        select *
+        from actor
+        where actor_id = #{id}
+    </select>
+
+    <!-- 根据名称模糊查询用户列表 -->
+    <select id="findUserByFirstname" parameterType="int" resultMap="actorResultMap">
+        select * from actor
+        <where>
+            <include refid="whereSql"/>
+        </where>
+    </select>
+</mapper>
