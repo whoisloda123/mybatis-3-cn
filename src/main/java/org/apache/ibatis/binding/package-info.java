@@ -16,5 +16,8 @@
 /**
  * Bings mapper interfaces with mapped statements
  * 提供 Mapper 接口与 XML 映射文件进行关联的支持
+ *
+ * 每一个Mapper接口会有一个MapperProxyFactory动态代理对象工厂，保存于MapperRegistry注册中心
+ * 调用接口的方法时，会进入MapperProxy动态代理对象中，然后通过该方法对应的MapperMethod方法执行SQL语句的相关操作
  */
 package org.apache.ibatis.binding;

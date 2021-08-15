@@ -39,6 +39,8 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 /**
+ * Mapper接口中定义的方法对应的Mapper方法，通过它来执行SQL
+ *
  * @author Clinton Begin
  * @author Eduardo Macarron
  * @author Lasse Voss
@@ -82,8 +84,9 @@ public class MapperMethod {
 			break;
 		}
 		case SELECT:
-			if (method.returnsVoid() && method.hasResultHandler()) { // 无返回，且入参中有 ResultHandler 结果处理器
-				executeWithResultHandler(sqlSession, args);
+			if (method.returnsVoid() && method.hasResultHandler()) {
+        // 无返回，且入参中有 ResultHandler 结果处理器
+        executeWithResultHandler(sqlSession, args);
 				result = null;
 			} else if (method.returnsMany()) {
         // 执行查询，返回列表

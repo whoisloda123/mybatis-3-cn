@@ -30,7 +30,7 @@ public class ClassLoaderWrapper {
 	 */
 	ClassLoader defaultClassLoader;
 	/**
-	 * 系统 ClassLoader 对象
+	 * 系统 ClassLoader 对象，也就是应用类加载器
 	 */
 	ClassLoader systemClassLoader;
 

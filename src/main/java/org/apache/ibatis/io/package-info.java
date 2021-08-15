@@ -15,6 +15,6 @@
  */
 /**
  * Utilities to read resources.
- * 提供资源加载功能
+ * 提供资源加载功能，加载类文件以及其他资源文件，例如加载某个包名下面所有的Class对象
  */
 package org.apache.ibatis.io;

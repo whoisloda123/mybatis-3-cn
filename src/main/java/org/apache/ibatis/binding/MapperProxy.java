@@ -49,7 +49,7 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
 	/**
 	 * 方法与 MapperMethod 的映射
 	 *
-	 * 从 {@link MapperProxyFactory#methodCache} 传递过来
+	 * 从 {@link MapperProxyFactory#getMethodCache()} 传递过来
 	 */
 	private final Map<Method, MapperMethod> methodCache;
 

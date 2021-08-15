@@ -47,7 +47,7 @@ public class ParamNameResolver {
 	 * <li>aMethod(int a, RowBounds rb, int b) -&gt; {{0, "0"}, {2, "1"}}</li>
 	 * </ul>
 	 *
-	 * 参数名映射
+	 * 参数名映射,主要解析Mapper接口里面的方法参数
 	 * KEY：参数顺序
 	 * VALUE：参数名
 	 */

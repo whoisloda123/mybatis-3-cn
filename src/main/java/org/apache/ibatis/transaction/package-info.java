@@ -16,5 +16,6 @@
 /**
  * Base package for transactions.
  * 对数据库中的事务进行了抽象，提供事务接口的简单实现
+ * MyBatis的JdbcTransaction事务和纯粹的JDBC事务几乎没什么差别,一般使用Spring的事务与事务管理
  */
 package org.apache.ibatis.transaction;

@@ -29,6 +29,8 @@ import org.apache.ibatis.scripting.LanguageDriver;
 import org.apache.ibatis.session.Configuration;
 
 /**
+ * 在XML映射文件中该方法对应的SQL语句生成的MappedStatement对象
+ *
  * @author Clinton Begin
  */
 public final class MappedStatement {

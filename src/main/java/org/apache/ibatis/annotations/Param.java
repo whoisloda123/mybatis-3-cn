@@ -15,6 +15,8 @@
  */
 package org.apache.ibatis.annotations;
 
+import org.apache.ibatis.reflection.ParamNameResolver;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -22,6 +24,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 在反射模块的 {@link ParamNameResolver} 工具类中会通过该注解设置参数名称
+ *
  * @author Clinton Begin
  */
 @Documented
