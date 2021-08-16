@@ -49,6 +49,8 @@ import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
 
 /**
+ * 解析mapper接口对应的xml文件
+ *
  * @author Clinton Begin
  * @author Kazuki Shimizu
  */

@@ -25,6 +25,8 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import org.apache.ibatis.builder.annotation.MapperAnnotationBuilder;
+import org.apache.ibatis.builder.xml.XMLMapperBuilder;
 import org.apache.ibatis.cache.Cache;
 import org.apache.ibatis.cache.decorators.LruCache;
 import org.apache.ibatis.cache.impl.PerpetualCache;
@@ -51,6 +53,7 @@ import org.apache.ibatis.type.TypeHandler;
 
 /**
  * Mapper 构造器小助手，用于创建XML映射文件中对应相关对象
+ * 小助手是为了 {@link XMLMapperBuilder} 和 {@link MapperAnnotationBuilder} 都能调用到一些公用方法
  *
  * @author Clinton Begin
  */
