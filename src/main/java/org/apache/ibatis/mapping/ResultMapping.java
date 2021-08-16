@@ -26,6 +26,11 @@ import org.apache.ibatis.type.TypeHandler;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 
 /**
+ * 对应xml里面
+ * {@code
+ *  <resultMap><result></result> </resultMap>
+ * }
+ * result标签
  * @author Clinton Begin
  */
 public class ResultMapping {

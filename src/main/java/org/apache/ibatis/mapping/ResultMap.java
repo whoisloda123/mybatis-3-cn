@@ -31,7 +31,13 @@ import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.reflection.ParamNameUtil;
 import org.apache.ibatis.session.Configuration;
 
+
 /**
+ * 对应xml里面
+ * {@code
+ *  <resultMap><result></result> </resultMap>
+ * }
+ * resultMap标签
  * @author Clinton Begin
  */
 public class ResultMap {

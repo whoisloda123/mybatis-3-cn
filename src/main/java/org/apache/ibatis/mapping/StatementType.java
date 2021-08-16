@@ -16,8 +16,22 @@
 package org.apache.ibatis.mapping;
 
 /**
+ * Statement 的类型：STATEMENT PREPARED CALLABLE，默认 PREPARED
+ * 分别对应：Statement PreparedStatement  CallableStatement
+ *
  * @author Clinton Begin
  */
 public enum StatementType {
-  STATEMENT, PREPARED, CALLABLE
+  /**
+   * 对应 {@link java.sql.Statement}.
+   */
+  STATEMENT,
+  /**
+   * 对应 {@link java.sql.PreparedStatement}.
+   */
+  PREPARED,
+  /**
+   * 对应 {@link java.sql.CallableStatement}.
+   */
+  CALLABLE
 }

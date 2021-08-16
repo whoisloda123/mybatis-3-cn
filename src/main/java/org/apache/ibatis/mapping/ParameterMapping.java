@@ -23,8 +23,12 @@ import org.apache.ibatis.type.TypeHandler;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 
 /**
- * SQL 语句中 ? 占位符对应的对象
- *
+ *  SQL 语句中 ? 占位符对应的对象
+ * 对应xml里面
+ * {@code
+ *  <parameterMap><parameter></parameter> </parameterMap>
+ * }
+ * parameter标签
  * @author Clinton Begin
  */
 public class ParameterMapping {

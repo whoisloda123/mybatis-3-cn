@@ -92,6 +92,8 @@ import org.apache.ibatis.type.TypeHandler;
 import org.apache.ibatis.type.UnknownTypeHandler;
 
 /**
+ * 解析Mapper接口，主要是解析接口上面注解，加载XML文件会调用 {@link XMLMapperBuilder} 类进行解析
+ *
  * @author Clinton Begin
  * @author Kazuki Shimizu
  */

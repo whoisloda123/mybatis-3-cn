@@ -21,6 +21,11 @@ import java.util.List;
 import org.apache.ibatis.session.Configuration;
 
 /**
+ * 对应xml里面
+ * {@code
+ *  <parameterMap><parameter></parameter> </parameterMap>
+ * }
+ * parameterMap标签
  * @author Clinton Begin
  */
 public class ParameterMap {
