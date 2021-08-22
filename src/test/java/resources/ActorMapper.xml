@@ -21,15 +21,15 @@
   <insert id="insertUseGeneratedKeys" parameterType="actor" useGeneratedKeys="true" keyColumn="actor_id"
           keyProperty="actorId">
     INSERT INTO actor (first_name, last_name, last_update)
-    values (#{actor.first_name}, #{actor.last_name}, #{actor.last_update})
+    values (#{actor.firstName}, #{actor.lastName}, #{actor.lastUpdate})
   </insert>
 
   <insert id="insertUseSelectKeys" parameterType="actor">
     <selectKey keyProperty="actorId" keyColumn="actor_id" order="AFTER">
       select last_insert_id() as actor_id
     </selectKey>
-    INSERT INTO actor (first_name, last_name, last_update) values (#{actor.first_name}, #{actor.last_name},
-    #{actor.last_update})
+    INSERT INTO actor (first_name, last_name, last_update) values (#{actor.firstName}, #{actor.lastName},
+    #{actor.lastUpdate})
   </insert>
 
   <!-- 根据id获取用户信息 useCache=false当前查询禁用二级缓存 flushCache是否查询二级缓存-->

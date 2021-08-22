@@ -15,9 +15,6 @@
  */
 package org.apache.ibatis.executor.keygen;
 
-import java.sql.Statement;
-import java.util.List;
-
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.executor.ExecutorException;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -26,7 +23,19 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.RowBounds;
 
+import java.sql.Statement;
+import java.util.List;
+
 /**
+ * 数据库需要执行Sequence主键时的配置，可以在执行insert之前或之后执行，采用如下配置
+ * <pre>
+ *  <insert id="insertStudent" parameterType="Student" >
+ * 	<selectKey keyProperty="studId" resultType="int" order="BEFORE">
+ * 		SELECT ELEARNING.STUD_ID_SEQ.NEXTVAL FROM DUAL
+ * 	</selectKey>
+ * 		INSERT INTO	 STUDENTS(STUD_ID, NAME, EMAIL, DOB, PHONE)	 VALUES(#{studId}, #{name},#{email}, #{dob}, #{phone})
+ * 	</insert>
+ * </pre>
  * @author Clinton Begin
  * @author Jeff Butler
  */
