@@ -15,14 +15,6 @@
  */
 package org.apache.ibatis.executor;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.ibatis.cursor.Cursor;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.logging.Log;
@@ -33,14 +25,22 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.transaction.Transaction;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
+ * 每次开始读或写操作，优先从缓存中获取对应的 Statement 对象。如果不存在，才进行创建。执行完成后，不关闭该 Statement 对象。
  * @author Clinton Begin
- * @description 每次开始读或写操作，优先从缓存中获取对应的 Statement 对象。如果不存在，才进行创建。执行完成后，不关闭该 Statement 对象。
  */
 public class ReuseExecutor extends BaseExecutor {
 
-	/**
-	 * Statement 的缓存
+  /**
+   * Statement 的缓存
 	 *
 	 * KEY ：SQL
 	 */

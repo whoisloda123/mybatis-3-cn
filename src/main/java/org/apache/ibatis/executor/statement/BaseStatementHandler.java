@@ -15,10 +15,6 @@
  */
 package org.apache.ibatis.executor.statement;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import org.apache.ibatis.executor.ErrorContext;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.executor.ExecutorException;
@@ -33,6 +29,10 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
  * @author Clinton Begin
  */
@@ -41,7 +41,7 @@ public abstract class BaseStatementHandler implements StatementHandler {
   /**
    * 全局配置
    */
-	protected final Configuration configuration;
+  protected final Configuration configuration;
   /**
    * 实例工厂
    */
@@ -124,26 +124,32 @@ public abstract class BaseStatementHandler implements StatementHandler {
 			setFetchSize(statement);
 			return statement;
 		} catch (SQLException e) {
-			// 发生异常，进行关闭
-			closeStatement(statement);
-			throw e;
-		} catch (Exception e) {
-			// 发生异常，进行关闭
-			closeStatement(statement);
-			throw new ExecutorException("Error preparing statement.  Cause: " + e, e);
-		}
-	}
+      // 发生异常，进行关闭
+      closeStatement(statement);
+      throw e;
+    } catch (Exception e) {
+      // 发生异常，进行关闭
+      closeStatement(statement);
+      throw new ExecutorException("Error preparing statement.  Cause: " + e, e);
+    }
+  }
 
-	protected abstract Statement instantiateStatement(Connection connection) throws SQLException;
+  /**
+   * 通过数据库连接对象 {@link Connection} 来创建相应的 {@link Statement}
+   * @param connection 数据库连接对象
+   * @return statement
+   * @throws SQLException 如果创建失败
+   */
+  protected abstract Statement instantiateStatement(Connection connection) throws SQLException;
 
-	protected void setStatementTimeout(Statement stmt, Integer transactionTimeout) throws SQLException {
-		Integer queryTimeout = null;
-		// 获得 queryTimeout
-		if (mappedStatement.getTimeout() != null) {
-			queryTimeout = mappedStatement.getTimeout();
-		} else if (configuration.getDefaultStatementTimeout() != null) {
-			queryTimeout = configuration.getDefaultStatementTimeout();
-		}
+  protected void setStatementTimeout(Statement stmt, Integer transactionTimeout) throws SQLException {
+    Integer queryTimeout = null;
+    // 获得 queryTimeout
+    if (mappedStatement.getTimeout() != null) {
+      queryTimeout = mappedStatement.getTimeout();
+    } else if (configuration.getDefaultStatementTimeout() != null) {
+      queryTimeout = configuration.getDefaultStatementTimeout();
+    }
 		// 设置执行的超时时间
 		if (queryTimeout != null) {
 			stmt.setQueryTimeout(queryTimeout);

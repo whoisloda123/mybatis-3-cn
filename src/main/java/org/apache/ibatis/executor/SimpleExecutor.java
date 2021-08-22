@@ -15,12 +15,6 @@
  */
 package org.apache.ibatis.executor;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Collections;
-import java.util.List;
-
 import org.apache.ibatis.cursor.Cursor;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.logging.Log;
@@ -31,15 +25,21 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.transaction.Transaction;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Collections;
+import java.util.List;
+
 /**
+ * 每次对数据库的操作，都会创建对应的Statement对象，执行完成后，关闭该Statement对象
  * @author Clinton Begin
- * @description 每次对数据库的操作，都会创建对应的Statement对象，执行完成后，关闭该Statement对象
  */
 public class SimpleExecutor extends BaseExecutor {
 
-	public SimpleExecutor(Configuration configuration, Transaction transaction) {
-		super(configuration, transaction);
-	}
+  public SimpleExecutor(Configuration configuration, Transaction transaction) {
+    super(configuration, transaction);
+  }
 
 	@Override
 	public int doUpdate(MappedStatement ms, Object parameter) throws SQLException {

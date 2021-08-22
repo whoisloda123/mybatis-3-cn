@@ -15,19 +15,30 @@
  */
 package org.apache.ibatis.executor.parameter;
 
+import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * A parameter handler sets the parameters of the {@code PreparedStatement}.
- *
+ * {@link PreparedStatement} 的参数处理器，将预编译好的sql里面的占位符？替换为真正的参数
  * @author Clinton Begin
+ * @see DefaultParameterHandler
  */
 public interface ParameterHandler {
 
+  /**
+   * 返回参数对象
+   * @return 参数对象
+   */
   Object getParameterObject();
 
+  /**
+   * 设置 {@code PreparedStatement} 的参数
+   * @param ps prepared statement
+   * @throws SQLException 如果设置异常
+   */
   void setParameters(PreparedStatement ps)
-      throws SQLException;
+    throws SQLException;
 
 }

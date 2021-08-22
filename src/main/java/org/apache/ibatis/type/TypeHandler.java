@@ -23,7 +23,6 @@ import java.sql.SQLException;
 
 /**
  * 实现 Jdbc Type 与 Java Type 之间的转换
- *
  * @param <T> java type 类型
  * @author Clinton Begin
  */
@@ -31,9 +30,7 @@ public interface TypeHandler<T> {
 
   /**
    * 设置 PreparedStatement 的指定参数
-   *
    * Java Type => JDBC Type
-   *
    * @param ps PreparedStatement 对象
    * @param i 参数占位符的位置
    * @param parameter 参数
@@ -44,9 +41,7 @@ public interface TypeHandler<T> {
 
   /**
    * 获得 ResultSet 的指定字段的值
-   *
    * JDBC Type => Java Type
-   *
    * @param rs ResultSet 对象
    * @param columnName 字段名
    * @return 值
@@ -56,9 +51,7 @@ public interface TypeHandler<T> {
 
   /**
    * 获得 ResultSet 的指定字段的值
-   *
    * JDBC Type => Java Type
-   *
    * @param rs ResultSet 对象
    * @param columnIndex 字段位置
    * @return 值
@@ -68,13 +61,11 @@ public interface TypeHandler<T> {
 
   /**
    * 获得 CallableStatement 的指定字段的值
-   *
    * JDBC Type => Java Type
-   *
    * @param cs CallableStatement 对象，支持调用存储过程
    * @param columnIndex 字段位置
    * @return 值
-   * @throws SQLException
+   * @throws SQLException 当发生 SQL 异常时
    */
   T getResult(CallableStatement cs, int columnIndex) throws SQLException;
 

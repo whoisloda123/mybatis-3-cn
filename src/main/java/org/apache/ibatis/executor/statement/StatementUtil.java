@@ -20,11 +20,13 @@ import java.sql.Statement;
 
 /**
  * Utility for {@link java.sql.Statement}.
- *
- * @since 3.4.0
  * @author Kazuki Shimizu
+ * @since 3.4.0
  */
-public class StatementUtil {
+public class
+
+
+StatementUtil {
 
   private StatementUtil() {
     // NOP
