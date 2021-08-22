@@ -15,20 +15,7 @@
  */
 package org.apache.ibatis.executor.keygen;
 
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
+import com.sun.istack.internal.Nullable;
 import org.apache.ibatis.binding.MapperMethod.ParamMap;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.executor.ExecutorException;
@@ -41,7 +28,21 @@ import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.*;
+import java.util.Map.Entry;
+
 /**
+ * 该类主要是针对数据库可以自增主键时，在返回值中带有生成数据的主键，采用如下配置
+ * <pre>
+ *   {@code
+ *    <insert id="insertStudents" useGeneratedKeys="true" keyProperty="studId" keyColumn="stud_id "  parameterType="Student">
+ *   }
+ * </pre>
+ * 这样insert之后会得到对应的主键的值，{@link #processAfter(Executor, MappedStatement, Statement, Object)}
  * @author Clinton Begin
  * @author Kazuki Shimizu
  */
@@ -252,38 +253,35 @@ public class Jdbc3KeyGenerator implements KeyGenerator {
     return new AbstractMap.SimpleImmutableEntry<>(key, value);
   }
 
-  private class KeyAssigner {
-    /**
-     * 全局配置对象
-     */
+  /**
+   * 单个自增键的分配者，将该自增键设置到入参对象的属性中
+   */
+  private static class KeyAssigner {
+
     private final Configuration configuration;
-    /**
-     * Statement 执行后返回的 元数据对象
-     */
+
     private final ResultSetMetaData rsmd;
-    /**
-     * 类型处理器注册中心
-     */
+
     private final TypeHandlerRegistry typeHandlerRegistry;
-    /**
-     * 属性对应列所在的位置
-     */
+
     private final int columnPosition;
-    /**
-     * 参数名称，添加了 @Param 注解时才有
-     */
+
     private final String paramName;
-    /**
-     * Java 属性名称
-     */
+
     private final String propertyName;
-    /**
-     * 类型处理器
-     */
+
     private TypeHandler<?> typeHandler;
 
-    protected KeyAssigner(Configuration configuration, ResultSetMetaData rsmd, int columnPosition, String paramName,
-        String propertyName) {
+    /**
+     * 创建单个自增健分配对象
+     * @param configuration 全局配置对象
+     * @param rsmd Statement 执行后返回的 元数据对象
+     * @param columnPosition 属性对应列所在的位置
+     * @param paramName 参数名称，添加了 @Param 注解时才有
+     * @param propertyName Java 属性名称
+     */
+    protected KeyAssigner(Configuration configuration, ResultSetMetaData rsmd, int columnPosition, @Nullable String paramName,
+                          String propertyName) {
       super();
       this.configuration = configuration;
       this.rsmd = rsmd;
@@ -293,6 +291,11 @@ public class Jdbc3KeyGenerator implements KeyGenerator {
       this.propertyName = propertyName;
     }
 
+    /**
+     * 通过 {@link Statement#getGeneratedKeys()} 返回的自增信息为参数对象设置key
+     * @param rs 自增信息
+     * @param param 入参对象
+     */
     protected void assign(ResultSet rs, Object param) {
       if (paramName != null) {
         // If paramName is set, param is ParamMap
@@ -307,7 +310,7 @@ public class Jdbc3KeyGenerator implements KeyGenerator {
             typeHandler = typeHandlerRegistry.getTypeHandler(propertyType, JdbcType.forCode(rsmd.getColumnType(columnPosition)));
           } else {
             throw new ExecutorException("No setter found for the keyProperty '" + propertyName + "' in '"
-                + metaParam.getOriginalObject().getClass().getName() + "'.");
+              + metaParam.getOriginalObject().getClass().getName() + "'.");
           }
         }
         if (typeHandler == null) {
@@ -320,7 +323,7 @@ public class Jdbc3KeyGenerator implements KeyGenerator {
         }
       } catch (SQLException e) {
         throw new ExecutorException("Error getting generated key or setting result to parameter object. Cause: " + e,
-            e);
+          e);
       }
     }
   }

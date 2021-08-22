@@ -15,10 +15,6 @@
  */
 package org.apache.ibatis.mapping;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.apache.ibatis.cache.Cache;
 import org.apache.ibatis.executor.keygen.Jdbc3KeyGenerator;
 import org.apache.ibatis.executor.keygen.KeyGenerator;
@@ -28,9 +24,12 @@ import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.scripting.LanguageDriver;
 import org.apache.ibatis.session.Configuration;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * 在XML映射文件中该方法对应的SQL语句生成的MappedStatement对象
- *
  * @author Clinton Begin
  */
 public final class MappedStatement {
@@ -338,25 +337,28 @@ public final class MappedStatement {
 		return resultOrdered;
 	}
 
-	public String getDatabaseId() {
-		return databaseId;
-	}
+  public String getDatabaseId() {
+    return databaseId;
+  }
 
-	public String[] getKeyProperties() {
-		return keyProperties;
-	}
+  public String[] getKeyProperties() {
+    return keyProperties;
+  }
 
-	public String[] getKeyColumns() {
-		return keyColumns;
-	}
+  /**
+   * 返回key 的生成器的 column 列名
+   */
+  public String[] getKeyColumns() {
+    return keyColumns;
+  }
 
-	public Log getStatementLog() {
-		return statementLog;
-	}
+  public Log getStatementLog() {
+    return statementLog;
+  }
 
-	public LanguageDriver getLang() {
-		return lang;
-	}
+  public LanguageDriver getLang() {
+    return lang;
+  }
 
 	public String[] getResultSets() {
 		return resultSets;

@@ -1,5 +1,6 @@
 package com.liucan.loda;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 
@@ -11,11 +12,15 @@ import java.util.List;
  */
 public interface ActorMapper {
 
-    Actor findUserById(Integer id) throws Exception;
+  Actor findUserById(Integer id);
 
-    Actor findUserByFirstname(String name) throws Exception;
+  Actor findUserByFirstname(String name);
 
-    @Select("select * from actor")
-    @ResultMap("actorResultMap")
-    List<Actor> selectList();
+  @Select("select * from actor")
+  @ResultMap("actorResultMap")
+  List<Actor> selectList();
+
+  void insertUseGeneratedKeys(@Param("actor") Actor actor);
+
+  void insertUseSelectKeys(@Param("actor") Actor actor);
 }

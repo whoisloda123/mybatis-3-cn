@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -42,14 +43,38 @@ public class MybatisTest {
         SqlSession sqlSession1 = this.sqlSessionFactory.openSession();
         SqlSession sqlSession2 = this.sqlSessionFactory.openSession();
         ActorMapper mapper1 = sqlSession1.getMapper(ActorMapper.class);
-        ActorMapper mapper2 = sqlSession2.getMapper(ActorMapper.class);
+      ActorMapper mapper2 = sqlSession2.getMapper(ActorMapper.class);
 
-        Actor userById = mapper1.findUserById(1);
-        System.out.println(userById);
-        sqlSession1.close();
+      Actor userById = mapper1.findUserById(1);
+      System.out.println(userById);
+      sqlSession1.close();
 
-        userById = mapper2.findUserById(1);
-        System.out.println(userById);
-        sqlSession2.close();
+      userById = mapper2.findUserById(1);
+      System.out.println(userById);
+      sqlSession2.close();
     }
+
+  @Test
+  public void testInsertUseGeneratedKeys() {
+    SqlSession sqlSession = this.sqlSessionFactory.openSession();
+    ActorMapper mapper = sqlSession.getMapper(ActorMapper.class);
+    Actor actor = new Actor();
+    actor.setFirstName("LIU");
+    actor.setLastName("CAN");
+    actor.setLastUpdate(LocalDateTime.now());
+    mapper.insertUseGeneratedKeys(actor);
+    System.out.println(actor);
+  }
+
+  @Test
+  public void testInsertUseSelectKeys() {
+    SqlSession sqlSession = this.sqlSessionFactory.openSession();
+    ActorMapper mapper = sqlSession.getMapper(ActorMapper.class);
+    Actor actor = new Actor();
+    actor.setFirstName("LIU");
+    actor.setLastName("CAN");
+    actor.setLastUpdate(LocalDateTime.now());
+    mapper.insertUseSelectKeys(actor);
+    System.out.println(actor);
+  }
 }

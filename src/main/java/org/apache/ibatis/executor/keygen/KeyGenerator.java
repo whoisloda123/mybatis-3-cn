@@ -15,32 +15,31 @@
  */
 package org.apache.ibatis.executor.keygen;
 
-import java.sql.Statement;
-
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
 
+import java.sql.Statement;
+
 /**
+ * 主键生成器接口，用于生成insert语句之前/之后的主键生成,并赋值给入参对象
  * @author Clinton Begin
  */
 public interface KeyGenerator {
 
   /**
    * 在 SQL 执行后设置自增键到入参中
-   *
-   * @param executor  执行器
-   * @param ms        MappedStatement 对象
-   * @param stmt      Statement对象
+   * @param executor 执行器
+   * @param ms MappedStatement 对象
+   * @param stmt Statement对象
    * @param parameter 入参对象
    */
   void processAfter(Executor executor, MappedStatement ms, Statement stmt, Object parameter);
 
   /**
    * 在 SQL 执行前设置自增键到入参中
-   *
-   * @param executor  执行器
-   * @param ms        MappedStatement 对象
-   * @param stmt      Statement对象
+   * @param executor 执行器
+   * @param ms MappedStatement 对象
+   * @param stmt Statement对象
    * @param parameter 入参对象
    */
   void processBefore(Executor executor, MappedStatement ms, Statement stmt, Object parameter);

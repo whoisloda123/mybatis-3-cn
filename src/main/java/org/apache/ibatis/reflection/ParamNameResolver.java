@@ -15,18 +15,18 @@
  */
 package org.apache.ibatis.reflection;
 
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.binding.MapperMethod.ParamMap;
+import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.ResultHandler;
+import org.apache.ibatis.session.RowBounds;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
-
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.binding.MapperMethod.ParamMap;
-import org.apache.ibatis.session.Configuration;
-import org.apache.ibatis.session.ResultHandler;
-import org.apache.ibatis.session.RowBounds;
 
 public class ParamNameResolver {
 
@@ -124,9 +124,8 @@ public class ParamNameResolver {
    * </p>
    * <p>
    * 根据参数值返回参数名称与参数值的映射关系
-   *
    * @param args 参数值数组
-   * @return 参数名称与参数值的映射关系
+   * @return 参数名称与参数值的映射关系 {@link ParamMap}
    */
   public Object getNamedParams(Object[] args) {
 		final int paramCount = names.size();

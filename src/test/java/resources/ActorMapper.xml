@@ -8,27 +8,41 @@
 
     <resultMap id="actorResultMap" type="actor">
         <id column="actor_id" property="actorId"/>
-        <result column="first_name" property="firstName"/>
-        <result column="last_name" property="lastName"/>
-        <result column="last_update" property="lastUpdate" javaType="java.time.LocalDateTime"/>
+      <result column="first_name" property="firstName"/>
+      <result column="last_name" property="lastName"/>
+      <result column="last_update" property="lastUpdate" javaType="java.time.LocalDateTime"/>
     </resultMap>
 
-    <sql id="whereSql">
-        first_name
-        like '%${value}%'
-    </sql>
+  <sql id="whereSql">
+    first_name
+    like '%${value}%'
+  </sql>
 
-    <!-- 根据id获取用户信息 useCache=false当前查询禁用二级缓存 flushCache是否查询二级缓存-->
-    <select id="findUserById" parameterType="java.lang.Integer" resultMap="actorResultMap" useCache="false">
-        select *
-        from actor
-        where actor_id = #{id}
-    </select>
+  <insert id="insertUseGeneratedKeys" parameterType="actor" useGeneratedKeys="true" keyColumn="actor_id"
+          keyProperty="actorId">
+    INSERT INTO actor (first_name, last_name, last_update)
+    values (#{actor.first_name}, #{actor.last_name}, #{actor.last_update})
+  </insert>
 
-    <!-- 根据名称模糊查询用户列表 -->
-    <select id="findUserByFirstname" parameterType="int" resultMap="actorResultMap">
-        select * from actor
-        <where>
+  <insert id="insertUseSelectKeys" parameterType="actor">
+    <selectKey keyProperty="actorId" keyColumn="actor_id" order="AFTER">
+      select last_insert_id() as actor_id
+    </selectKey>
+    INSERT INTO actor (first_name, last_name, last_update) values (#{actor.first_name}, #{actor.last_name},
+    #{actor.last_update})
+  </insert>
+
+  <!-- 根据id获取用户信息 useCache=false当前查询禁用二级缓存 flushCache是否查询二级缓存-->
+  <select id="findUserById" parameterType="java.lang.Integer" resultMap="actorResultMap" useCache="false">
+    select *
+    from actor
+    where actor_id = #{id}
+  </select>
+
+  <!-- 根据名称模糊查询用户列表 -->
+  <select id="findUserByFirstname" parameterType="int" resultMap="actorResultMap">
+    select * from actor
+    <where>
             <include refid="whereSql"/>
         </where>
     </select>

@@ -15,12 +15,13 @@
  */
 package org.apache.ibatis.executor.keygen;
 
-import java.sql.Statement;
-
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
 
+import java.sql.Statement;
+
 /**
+ * 不做任何处理的主键生成器，主要用于标记作用
  * @author Clinton Begin
  * @author Kazuki Shimizu
  */
