@@ -16,6 +16,7 @@
 package org.apache.ibatis.executor.resultset;
 
 import java.sql.CallableStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -23,6 +24,7 @@ import java.util.List;
 import org.apache.ibatis.cursor.Cursor;
 
 /**
+ * 处理查询结果 {@link ResultSet} 将数据库查询结果转换成 Java 对象，是一个非常繁琐的过程，需要处理各种场景
  * @author Clinton Begin
  */
 public interface ResultSetHandler {
@@ -31,7 +33,7 @@ public interface ResultSetHandler {
    * 处理 {@link java.sql.ResultSet} 成映射的对应的结果
    *
    * @param stmt Statement 对象
-   * @param <E>  泛型
+   * @param <E>  结果类型
    * @return 结果数组
    * @throws SQLException SQL异常
    */
@@ -41,7 +43,7 @@ public interface ResultSetHandler {
    * 处理 {@link java.sql.ResultSet} 成 Cursor 对象
    *
    * @param stmt Statement 对象
-   * @param <E>  泛型
+   * @param <E>  结果类型
    * @return Cursor 对象
    * @throws SQLException SQL异常
    */

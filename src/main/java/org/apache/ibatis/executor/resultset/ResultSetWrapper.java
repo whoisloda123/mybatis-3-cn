@@ -37,7 +37,7 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.apache.ibatis.type.UnknownTypeHandler;
 
 /**
- * java.sql.ResultSet 的包装类
+ * {@link ResultSet} 的包装类
  *
  * @author Iwao AVE!
  */
@@ -184,6 +184,9 @@ public class ResultSetWrapper {
     return null;
   }
 
+  /**
+   * 获取配置的列名的前缀，全部大写，通常是没有配置的
+   */
   private void loadMappedAndUnmappedColumnNames(ResultMap resultMap, String columnPrefix) throws SQLException {
     List<String> mappedColumnNames = new ArrayList<>();
     List<String> unmappedColumnNames = new ArrayList<>();
@@ -240,10 +243,10 @@ public class ResultSetWrapper {
   }
 
   /**
+   * 为每个列名添加前缀
    * @param columnNames 列名集合
    * @param prefix      前缀
    * @return 添加前缀后的列名集合
-   * @description 为每个列名添加前缀
    */
   private Set<String> prependPrefixes(Set<String> columnNames, String prefix) {
     if (columnNames == null || columnNames.isEmpty() || prefix == null || prefix.length() == 0) {

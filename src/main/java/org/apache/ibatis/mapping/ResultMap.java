@@ -38,7 +38,9 @@ import org.apache.ibatis.session.Configuration;
  *  <resultMap><result></result> </resultMap>
  * }
  * resultMap标签
+ * 如果用的是resultType的话，也会转换为该对象，且只有 {@link #getType()} 有值
  * @author Clinton Begin
+ * @see org.apache.ibatis.builder.MapperBuilderAssistant#getStatementResultMaps
  */
 public class ResultMap {
 	/**

@@ -33,6 +33,8 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.transaction.Transaction;
 
 /**
+ * 支持二级缓存的 Executor 的实现类
+ *
  * @author Clinton Begin
  * @author Eduardo Macarron
  */

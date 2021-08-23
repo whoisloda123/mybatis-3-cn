@@ -15,7 +15,6 @@
  */
 package org.apache.ibatis.executor.keygen;
 
-import com.sun.istack.internal.Nullable;
 import org.apache.ibatis.binding.MapperMethod.ParamMap;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.executor.ExecutorException;
@@ -280,7 +279,7 @@ public class Jdbc3KeyGenerator implements KeyGenerator {
      * @param paramName 参数名称，添加了 @Param 注解时才有
      * @param propertyName Java 属性名称
      */
-    protected KeyAssigner(Configuration configuration, ResultSetMetaData rsmd, int columnPosition, @Nullable String paramName,
+    protected KeyAssigner(Configuration configuration, ResultSetMetaData rsmd, int columnPosition, String paramName,
                           String propertyName) {
       super();
       this.configuration = configuration;
