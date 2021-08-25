@@ -15,15 +15,6 @@
  */
 package org.apache.ibatis.binding;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 import org.apache.ibatis.annotations.Flush;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.cursor.Cursor;
@@ -37,6 +28,15 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
+
+import java.lang.reflect.Array;
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * Mapper接口中定义的方法对应的Mapper方法，通过它来执行SQL
@@ -319,91 +319,94 @@ public class MapperMethod {
 			// 遍历父接口，获取对应的 MappedStatement
 			for (Class<?> superInterface : mapperInterface.getInterfaces()) {
 				if (declaringClass.isAssignableFrom(superInterface)) {
-					MappedStatement ms = resolveMappedStatement(superInterface, methodName, declaringClass, configuration);
-					if (ms != null) {
-						return ms;
-					}
-				}
-			}
-			return null;
-		}
-	}
+          MappedStatement ms = resolveMappedStatement(superInterface, methodName, declaringClass, configuration);
+          if (ms != null) {
+            return ms;
+          }
+        }
+      }
+      return null;
+    }
+  }
 
-	public static class MethodSignature {
+  /**
+   * method详细信息
+   */
+  public static class MethodSignature {
 
-		/**
-		 * 返回数据是否包含多个
-		 */
-		private final boolean returnsMany;
-		/**
-		 * 返回类型是否为Map的子类，并且该方法上面使用了 @MapKey 注解
-		 */
-		private final boolean returnsMap;
-		/**
-		 * 返回类型是否为 void
-		 */
-		private final boolean returnsVoid;
-		/**
-		 * 返回类型是否为 Cursor
-		 */
-		private final boolean returnsCursor;
-		/**
-		 * 返回类型是否为 Optional
-		 */
-		private final boolean returnsOptional;
-		/**
-		 * 返回类型
-		 */
-		private final Class<?> returnType;
-		/**
-		 * 方法上 @MapKey 注解定义的值
-		 */
-		private final String mapKey;
-		/**
-		 * 用来标记该方法参数列表中 ResultHandler 类型参数得位置
-		 */
-		private final Integer resultHandlerIndex;
-		/**
-		 * 用来标记该方法参数列表中 RowBounds 类型参数得位置
-		 */
-		private final Integer rowBoundsIndex;
-		/**
-		 * ParamNameResolver 对象，主要用于解析 @Param 注解定义的参数，参数值与参数得映射等
-		 */
-		private final ParamNameResolver paramNameResolver;
+    /**
+     * 返回数据是否包含多个
+     */
+    private final boolean returnsMany;
+    /**
+     * 返回类型是否为Map的子类，并且该方法上面使用了 @MapKey 注解
+     */
+    private final boolean returnsMap;
+    /**
+     * 返回类型是否为 void
+     */
+    private final boolean returnsVoid;
+    /**
+     * 返回类型是否为 Cursor
+     */
+    private final boolean returnsCursor;
+    /**
+     * 返回类型是否为 Optional
+     */
+    private final boolean returnsOptional;
+    /**
+     * 返回类型
+     */
+    private final Class<?> returnType;
+    /**
+     * 方法上 @MapKey 注解定义的值
+     */
+    private final String mapKey;
+    /**
+     * 用来标记该方法参数列表中 ResultHandler 类型参数得位置
+     */
+    private final Integer resultHandlerIndex;
+    /**
+     * 用来标记该方法参数列表中 RowBounds 类型参数得位置
+     */
+    private final Integer rowBoundsIndex;
+    /**
+     * ParamNameResolver 对象，主要用于解析 @Param 注解定义的参数，参数值与参数得映射等
+     */
+    private final ParamNameResolver paramNameResolver;
 
-		public MethodSignature(Configuration configuration, Class<?> mapperInterface, Method method) {
-			// 获取该方法的返回类型
-			Type resolvedReturnType = TypeParameterResolver.resolveReturnType(method, mapperInterface);
-			if (resolvedReturnType instanceof Class<?>) {
-				this.returnType = (Class<?>) resolvedReturnType;
-			} else if (resolvedReturnType instanceof ParameterizedType) { // 泛型类型
-				// 获取该参数化类型的实际类型
-				this.returnType = (Class<?>) ((ParameterizedType) resolvedReturnType).getRawType();
-			} else {
-				this.returnType = method.getReturnType();
-			}
-			// 是否为无返回结果
-			this.returnsVoid = void.class.equals(this.returnType);
-			// 返回类型是否为集合或者数组类型
-			this.returnsMany = configuration.getObjectFactory().isCollection(this.returnType) || this.returnType.isArray();
-			// 返回类型是否为游标类型
-			this.returnsCursor = Cursor.class.equals(this.returnType);
-			// 返回结果是否则 Optional 类型
-			this.returnsOptional = Optional.class.equals(this.returnType);
-			// 解析方法上面的 @MapKey 注解
-			this.mapKey = getMapKey(method);
-			this.returnsMap = this.mapKey != null;
-			// 方法参数类型为 RowBounds 的位置
-			this.rowBoundsIndex = getUniqueParamIndex(method, RowBounds.class);
+    public MethodSignature(Configuration configuration, Class<?> mapperInterface, Method method) {
+      // 获取该方法的返回类型
+      Type resolvedReturnType = TypeParameterResolver.resolveReturnType(method, mapperInterface);
+      if (resolvedReturnType instanceof Class<?>) {
+        this.returnType = (Class<?>) resolvedReturnType;
+      } else if (resolvedReturnType instanceof ParameterizedType) { // 泛型类型
+        // 获取该参数化类型的实际类型
+        this.returnType = (Class<?>) ((ParameterizedType) resolvedReturnType).getRawType();
+      } else {
+        this.returnType = method.getReturnType();
+      }
+      // 是否为无返回结果
+      this.returnsVoid = void.class.equals(this.returnType);
+      // 返回类型是否为集合或者数组类型
+      this.returnsMany = configuration.getObjectFactory().isCollection(this.returnType) || this.returnType.isArray();
+      // 返回类型是否为游标类型
+      this.returnsCursor = Cursor.class.equals(this.returnType);
+      // 返回结果是否则 Optional 类型
+      this.returnsOptional = Optional.class.equals(this.returnType);
+      // 解析方法上面的 @MapKey 注解
+      this.mapKey = getMapKey(method);
+      this.returnsMap = this.mapKey != null;
+      // 方法参数类型为 RowBounds 的位置
+      this.rowBoundsIndex = getUniqueParamIndex(method, RowBounds.class);
       // 方法参数类型为 ResultHandler 的位置
-			this.resultHandlerIndex = getUniqueParamIndex(method, ResultHandler.class);
-			/*
-			 * 解析该方法参数名称生成参数位置与参数名称的映射
-			 * @Param 注解则取其值作为参数名称，否则取其真实的参数名称，在没有则为参数位置
-			 */
-			this.paramNameResolver = new ParamNameResolver(configuration, method);
-		}
+      this.resultHandlerIndex = getUniqueParamIndex(method, ResultHandler.class);
+      /*
+       * 解析该方法参数名称生成参数位置与参数名称的映射
+       * @Param 注解则取其值作为参数名称，否则取其真实的参数名称，在没有则为参数位置
+       */
+      this.paramNameResolver = new ParamNameResolver(configuration, method);
+    }
 
     /**
      * 根据入参返回参数名称与入参的映射
@@ -411,85 +414,85 @@ public class MapperMethod {
      * @param args 入参
      * @return 参数名称与入参的映射
      */
-		public Object convertArgsToSqlCommandParam(Object[] args) {
-			return paramNameResolver.getNamedParams(args);
-		}
+    public Object convertArgsToSqlCommandParam(Object[] args) {
+      return paramNameResolver.getNamedParams(args);
+    }
 
-		public boolean hasRowBounds() {
-			return rowBoundsIndex != null;
-		}
+    public boolean hasRowBounds() {
+      return rowBoundsIndex != null;
+    }
 
-		public RowBounds extractRowBounds(Object[] args) {
-			return hasRowBounds() ? (RowBounds) args[rowBoundsIndex] : null;
-		}
+    public RowBounds extractRowBounds(Object[] args) {
+      return hasRowBounds() ? (RowBounds) args[rowBoundsIndex] : null;
+    }
 
-		public boolean hasResultHandler() {
-			return resultHandlerIndex != null;
-		}
+    public boolean hasResultHandler() {
+      return resultHandlerIndex != null;
+    }
 
-		public ResultHandler extractResultHandler(Object[] args) {
-			return hasResultHandler() ? (ResultHandler) args[resultHandlerIndex] : null;
-		}
+    public ResultHandler extractResultHandler(Object[] args) {
+      return hasResultHandler() ? (ResultHandler) args[resultHandlerIndex] : null;
+    }
 
-		public String getMapKey() {
-			return mapKey;
-		}
+    public String getMapKey() {
+      return mapKey;
+    }
 
-		public Class<?> getReturnType() {
-			return returnType;
-		}
+    public Class<?> getReturnType() {
+      return returnType;
+    }
 
-		public boolean returnsMany() {
-			return returnsMany;
-		}
+    public boolean returnsMany() {
+      return returnsMany;
+    }
 
-		public boolean returnsMap() {
-			return returnsMap;
-		}
+    public boolean returnsMap() {
+      return returnsMap;
+    }
 
-		public boolean returnsVoid() {
-			return returnsVoid;
-		}
+    public boolean returnsVoid() {
+      return returnsVoid;
+    }
 
-		public boolean returnsCursor() {
-			return returnsCursor;
-		}
+    public boolean returnsCursor() {
+      return returnsCursor;
+    }
 
-		/**
-		 * return whether return type is {@code java.util.Optional}.
-		 *
-		 * @return return {@code true}, if return type is {@code java.util.Optional}
-		 * @since 3.5.0
-		 */
-		public boolean returnsOptional() {
-			return returnsOptional;
-		}
+    /**
+     * return whether return type is {@code java.util.Optional}.
+     *
+     * @return return {@code true}, if return type is {@code java.util.Optional}
+     * @since 3.5.0
+     */
+    public boolean returnsOptional() {
+      return returnsOptional;
+    }
 
-		private Integer getUniqueParamIndex(Method method, Class<?> paramType) {
-			Integer index = null;
-			final Class<?>[] argTypes = method.getParameterTypes();
-			for (int i = 0; i < argTypes.length; i++) {
-				if (paramType.isAssignableFrom(argTypes[i])) {
-					if (index == null) {
-						index = i;
-					} else {
-						throw new BindingException(method.getName() + " cannot have multiple " + paramType.getSimpleName() + " parameters");
-					}
-				}
-			}
-			return index;
-		}
+    private Integer getUniqueParamIndex(Method method, Class<?> paramType) {
+      Integer index = null;
+      final Class<?>[] argTypes = method.getParameterTypes();
+      for (int i = 0; i < argTypes.length; i++) {
+        if (paramType.isAssignableFrom(argTypes[i])) {
+          if (index == null) {
+            index = i;
+          } else {
+            throw new BindingException(method.getName() + " cannot have multiple " + paramType.getSimpleName() + " parameters");
+          }
+        }
+      }
+      return index;
+    }
 
-		private String getMapKey(Method method) {
-			String mapKey = null;
-			if (Map.class.isAssignableFrom(method.getReturnType())) {
-				final MapKey mapKeyAnnotation = method.getAnnotation(MapKey.class);
-				if (mapKeyAnnotation != null) {
-					mapKey = mapKeyAnnotation.value();
-				}
-			}
-			return mapKey;
-		}
-	}
+    private String getMapKey(Method method) {
+      String mapKey = null;
+      if (Map.class.isAssignableFrom(method.getReturnType())) {
+        final MapKey mapKeyAnnotation = method.getAnnotation(MapKey.class);
+        if (mapKeyAnnotation != null) {
+          mapKey = mapKeyAnnotation.value();
+        }
+      }
+      return mapKey;
+    }
+  }
 
 }

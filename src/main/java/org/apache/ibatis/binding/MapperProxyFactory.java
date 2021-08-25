@@ -15,14 +15,15 @@
  */
 package org.apache.ibatis.binding;
 
+import org.apache.ibatis.session.SqlSession;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.ibatis.session.SqlSession;
-
 /**
+ * mapper接口代理类创建的工厂类
  * @author Lasse Voss
  */
 public class MapperProxyFactory<T> {

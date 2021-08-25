@@ -15,6 +15,9 @@
  */
 package org.apache.ibatis.binding;
 
+import org.apache.ibatis.reflection.ExceptionUtil;
+import org.apache.ibatis.session.SqlSession;
+
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodHandles.Lookup;
@@ -24,10 +27,8 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-import org.apache.ibatis.reflection.ExceptionUtil;
-import org.apache.ibatis.session.SqlSession;
-
 /**
+ * mapper接口代理类
  * @author Clinton Begin
  * @author Eduardo Macarron
  */

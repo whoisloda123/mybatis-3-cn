@@ -15,9 +15,23 @@
  */
 package org.apache.ibatis.session;
 
+import org.apache.ibatis.executor.Executor;
+
 /**
+ * sql执行器 {@link Executor} 的类型
  * @author Clinton Begin
  */
 public enum ExecutorType {
-  SIMPLE, REUSE, BATCH
+  /**
+   * 默认执行类型 {@link org.apache.ibatis.executor.SimpleExecutor}
+   */
+  SIMPLE,
+  /**
+   * 可重用执行器类型 {@link org.apache.ibatis.executor.ReuseExecutor}
+   */
+  REUSE,
+  /**
+   * 批量操作执行类型 {@link org.apache.ibatis.executor.BatchExecutor}
+   */
+  BATCH
 }
