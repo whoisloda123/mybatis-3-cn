@@ -22,6 +22,7 @@ import org.apache.ibatis.reflection.factory.ObjectFactory;
 import org.apache.ibatis.session.Configuration;
 
 /**
+ * 存在嵌套子查询且需要延迟加载，则会通过 ProxyFactor y动态代理工厂，为返回结果的实例对象创建一个动态代理
  * @author Eduardo Macarron
  */
 public interface ProxyFactory {

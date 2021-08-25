@@ -42,6 +42,7 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 
 /**
+ * {@link ResultLoader} 延迟加载器集合
  * @author Clinton Begin
  * @author Franta Mejta
  */

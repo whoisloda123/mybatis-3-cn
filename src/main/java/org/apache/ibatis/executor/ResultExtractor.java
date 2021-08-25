@@ -23,6 +23,7 @@ import org.apache.ibatis.reflection.factory.ObjectFactory;
 import org.apache.ibatis.session.Configuration;
 
 /**
+ * 结果提取器，用于提取延迟加载对应的子查询的查询结果，转换成Java对象
  * @author Andrew Gustafson
  */
 public class ResultExtractor {

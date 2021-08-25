@@ -14,6 +14,8 @@ public interface ActorMapper {
 
   Actor findUserById(Integer id);
 
+  List<Actor> selectListUsers();
+
   Actor findUserByFirstname(String name);
 
   @Select("select * from actor")
@@ -23,4 +25,6 @@ public interface ActorMapper {
   void insertUseGeneratedKeys(@Param("actor") Actor actor);
 
   void insertUseSelectKeys(@Param("actor") Actor actor);
+
+  List<FilmActorMap> selectListByActorId(Integer actorId);
 }

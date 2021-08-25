@@ -11,6 +11,14 @@
     <result column="first_name" property="firstName"/>
     <result column="last_name" property="lastName"/>
     <result column="last_update" property="lastUpdate" javaType="java.time.LocalDateTime"/>
+    <collection property="filmIds" select="com.liucan.loda.ActorMapper.selectListByActorId" column="actor_id"/>
+<!--    <association property="filmIds" select="com.liucan.loda.ActorMapper.selectListByActorId" column="actor_id"/>-->
+  </resultMap>
+
+  <resultMap id="filmActorMapResultMap" type="com.liucan.loda.FilmActorMap">
+    <result column="actor_id" property="actorId"/>
+    <result column="film_id" property="filmId"/>
+    <result column="last_update" property="lastUpdate" javaType="java.time.LocalDateTime"/>
   </resultMap>
 
   <sql id="whereSql">
@@ -39,6 +47,11 @@
     where actor_id = #{id}
   </select>
 
+  <select id="selectListUsers"  resultMap="actorResultMap">
+    select *
+    from actor
+  </select>
+
   <!-- 根据名称模糊查询用户列表 -->
   <select id="findUserByFirstname" parameterType="int" resultMap="actorResultMap">
     select * from actor
@@ -46,4 +59,9 @@
       <include refid="whereSql"/>
     </where>
   </select>
+
+  <select id="selectListByActorId" parameterType="int" resultMap="filmActorMapResultMap">
+    select * from film_actor where actor_id = #{actorId};
+  </select>
+
 </mapper>

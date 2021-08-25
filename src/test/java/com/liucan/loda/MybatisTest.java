@@ -63,6 +63,7 @@ public class MybatisTest {
     actor.setLastName("CAN");
     actor.setLastUpdate(LocalDateTime.now());
     mapper.insertUseGeneratedKeys(actor);
+    sqlSession.close();
     System.out.println(actor);
   }
 
@@ -76,5 +77,18 @@ public class MybatisTest {
     actor.setLastUpdate(LocalDateTime.now());
     mapper.insertUseSelectKeys(actor);
     System.out.println(actor);
+    sqlSession.close();
+  }
+
+  @Test
+  public void testLayzLoad() {
+    SqlSession sqlSession = this.sqlSessionFactory.openSession();
+    ActorMapper mapper = sqlSession.getMapper(ActorMapper.class);
+    List<Actor> actors = mapper.selectListUsers();
+    Actor actor1 = actors.get(0);
+    System.out.println(actor1.getFilmIds());
+    Integer actorId = actor1.getActorId();
+    System.out.println(actor1.getFilmIds());
+    sqlSession.close();
   }
 }

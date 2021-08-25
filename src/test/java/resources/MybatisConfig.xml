@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
-        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <properties resource="db.properties"></properties>
+  <properties resource="db.properties"/>
 
+  <settings>
     <!-- 开启二级缓存总开关 -->
-    <settings>
-        <setting name="cacheEnabled" value="true"/>
-    </settings>
+    <setting name="cacheEnabled" value="true"/>
 
-    <!-- 简化映射文件中parameterType和ResultType中的POJO类型名称编写-->
-    <typeAliases>
-        <typeAlias type="com.liucan.loda.Actor" alias="actor"/>
-        <package name="com.liucan.loda"/>
-    </typeAliases>
+    <!--按需加载-->
+    <setting name="lazyLoadingEnabled" value="true"/>
+    <!--将积极加载修改为消极加载-->
+    <setting name="aggressiveLazyLoading" value="false"/>
+  </settings>
 
-    <environments default="development">
-        <environment id="development">
-            <transactionManager type="JDBC"/>
-            <dataSource type="POOLED">
-                <property name="driver" value="${db.driver}"/>
-                <property name="url" value="${db.url}"/>
-                <property name="username" value="${db.username}"/>
-                <property name="password" value="${db.password}"/>
-            </dataSource>
-        </environment>
-    </environments>
+  <!-- 简化映射文件中parameterType和ResultType中的POJO类型名称编写-->
+  <typeAliases>
+    <typeAlias type="com.liucan.loda.Actor" alias="actor"/>
+    <package name="com.liucan.loda"/>
+  </typeAliases>
 
-    <mappers>
-        <mapper resource="ActorMapper.xml"/>
-    </mappers>
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="${db.driver}"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+      </dataSource>
+    </environment>
+  </environments>
+
+  <mappers>
+    <mapper resource="ActorMapper.xml"/>
+  </mappers>
 </configuration>
