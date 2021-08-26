@@ -21,6 +21,10 @@
     <package name="com.liucan.loda"/>
   </typeAliases>
 
+  <plugins>
+    <plugin interceptor="com.liucan.loda.PageHelperPlugin"/>
+  </plugins>
+
   <environments default="development">
     <environment id="development">
       <transactionManager type="JDBC"/>

@@ -22,6 +22,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 定义需要拦截的对象信息
  * @author Clinton Begin
  */
 @Documented

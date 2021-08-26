@@ -19,6 +19,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
+ * 被拦截的对象信息
  * @author Clinton Begin
  */
 public class Invocation {
@@ -54,6 +55,9 @@ public class Invocation {
 		return args;
 	}
 
+  /**
+   * 执行被拦截对象方法
+   */
 	public Object proceed() throws InvocationTargetException, IllegalAccessException {
 		return method.invoke(target, args);
 	}

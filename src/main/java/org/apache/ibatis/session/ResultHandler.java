@@ -16,14 +16,16 @@
 package org.apache.ibatis.session;
 
 /**
+ * 查询结果处理器
  * @author Clinton Begin
+ * @see org.apache.ibatis.executor.result.DefaultResultHandler
  */
 public interface ResultHandler<T> {
 
   /**
-   * 处理当前结果
+   * 处理当前结果，一般为一行数据
    *
-   * @param resultContext 结果上下文
+   * @param resultContext 暂存映射后的行当前结果
    */
   void handleResult(ResultContext<? extends T> resultContext);
 

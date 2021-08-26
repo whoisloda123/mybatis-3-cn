@@ -16,16 +16,33 @@
 package org.apache.ibatis.session;
 
 /**
+ * 暂存映射后的返回行结果
  * @author Clinton Begin
+ * @see org.apache.ibatis.executor.result.DefaultResultContext
  */
 public interface ResultContext<T> {
 
+  /**
+   * 返回当前暂存映射对象
+   * @return 当前暂存对象
+   */
   T getResultObject();
 
+  /**
+   * 返回暂存过映射对象个数
+   * @return 暂存过映射对象个数
+   */
   int getResultCount();
 
+  /**
+   * 是否进行映射
+   * @return 是否进行映射
+   */
   boolean isStopped();
 
+  /**
+   * 控制是否进行映射
+   */
   void stop();
 
 }

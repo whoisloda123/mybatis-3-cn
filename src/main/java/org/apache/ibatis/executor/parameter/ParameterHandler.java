@@ -38,7 +38,6 @@ public interface ParameterHandler {
    * @param ps prepared statement
    * @throws SQLException 如果设置异常
    */
-  void setParameters(PreparedStatement ps)
-    throws SQLException;
+  void setParameters(PreparedStatement ps) throws SQLException;
 
 }

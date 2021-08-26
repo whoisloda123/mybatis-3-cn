@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * 拦截器链，用于将所有的拦截器按顺序将插件逻辑植入目标对象
  * @author Clinton Begin
  */
 public class InterceptorChain {

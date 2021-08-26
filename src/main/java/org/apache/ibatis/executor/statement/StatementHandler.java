@@ -70,10 +70,11 @@ public interface StatementHandler {
    * 执行读操作
    * @param statement Statement 对象
    * @param resultHandler ResultHandler 对象，处理结果
-   * @param <E> 泛型
+   * @param <E> 结果类型
    * @return 读取的结果
    * @throws SQLException 如果执行异常
    */
+  @SuppressWarnings("rawtypes")
   <E> List<E> query(Statement statement, ResultHandler resultHandler) throws SQLException;
 
   /**

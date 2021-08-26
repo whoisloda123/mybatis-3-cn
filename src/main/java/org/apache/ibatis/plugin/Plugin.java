@@ -26,6 +26,8 @@ import java.util.Set;
 import org.apache.ibatis.reflection.ExceptionUtil;
 
 /**
+ * 实现InvocationHandler接口，用于对拦截的对象进行，一方面提供创建动态代理对象的方法，
+ * 另一方面实现对指定类的指定方法的拦截处理，MyBatis插件机制的核心类
  * @author Clinton Begin
  */
 public class Plugin implements InvocationHandler {
