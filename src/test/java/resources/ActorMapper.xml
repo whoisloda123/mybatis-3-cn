@@ -41,10 +41,16 @@
   </insert>
 
   <!-- 根据id获取用户信息 useCache=false当前查询禁用二级缓存 flushCache是否查询二级缓存-->
-  <select id="findUserById" parameterType="java.lang.Integer" resultMap="actorResultMap" useCache="false">
+  <select id="findUserById" resultMap="actorResultMap" useCache="false">
     select *
     from actor
     where actor_id = #{id}
+  </select>
+
+  <select id="findUserByIdAndName" resultMap="actorResultMap">
+    select *
+    from actor
+    where first_name = #{name} and actor_id = #{id}
   </select>
 
   <select id="selectListUsers"  resultMap="actorResultMap">

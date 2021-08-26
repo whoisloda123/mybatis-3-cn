@@ -14,6 +14,8 @@ public interface ActorMapper {
 
   Actor findUserById(Integer id);
 
+  Actor findUserByIdAndName(@Param("id") Integer id, @Param("name") String name);
+
   List<Actor> selectListUsers();
 
   Actor findUserByFirstname(String name);
