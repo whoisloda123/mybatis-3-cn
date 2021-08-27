@@ -20,13 +20,14 @@ import java.util.Properties;
 /**
  * mybatis 拦截器接口，实现该接口可在拦截之后做一些额外处理，如打印sql日志，分页等等
  * 目前只能针对 mybatis 执行sql流程过程中的几个核心类和对应的方法拦截：
- *
+ * <ul>
  * <li>执行器 {@link org.apache.ibatis.executor.Executor}</li>
  * <li>statement处理器 {@link org.apache.ibatis.executor.statement.StatementHandler}</li>
  * <li>参数处理器 {@link org.apache.ibatis.executor.parameter.ParameterHandler}</li>
  * <li>查询结果处理器 {@link org.apache.ibatis.executor.resultset.ResultSetHandler}</li>
- * <p>
- * 需要在实现类上面通过 {@link Intercepts} 和 {@link Signature} 注解指定需要拦截的对象和方法
+ * </ul>
+ *
+ * <p>需要在实现类上面通过 {@link Intercepts} 和 {@link Signature} 注解指定需要拦截的对象和方法
  * 使用方法：
  * <pre>
  *   {@code

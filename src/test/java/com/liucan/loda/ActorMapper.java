@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 /**
+ * 如果入参只有一个且是基础类型则不需要用 {@code Param} 注解，如果是入参只有一个但是pojo对象，则需要，
+ * 如果入参是多个不管是否是基础则也需要
  * @author liucan
  * @version 2021/8/2
  */

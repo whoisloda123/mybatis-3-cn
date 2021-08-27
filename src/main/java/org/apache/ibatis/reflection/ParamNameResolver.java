@@ -28,6 +28,16 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+/**
+ * 方法参数名称解析器
+ * <p>会通过构造方法 {@link #ParamNameResolver(Configuration, Method)}
+ * 将方法的参数的信息保存在 {@link #names} 里面key为参数索引顺序，value为参数名称
+ *
+ * <p>而 {@link #getNamedParams(Object[])} 方法则会将真正入参数据解析为 {@link ParamMap} （key为参数名称，value为真正数据）
+ * 或对象本身（在只有一个参数且没有 {@code Param} 注解）
+ *
+ * @author Clinton Begin
+ */
 public class ParamNameResolver {
 
 	private static final String GENERIC_NAME_PREFIX = "param";

@@ -15,6 +15,10 @@
  */
 package org.apache.ibatis.mapping;
 
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.binding.MapperMethod;
+import org.apache.ibatis.reflection.ParamNameResolver;
+
 /**
  * Represents the content of a mapped statement read from an XML file or an
  * annotation. It creates the SQL that will be passed to the database out of the
@@ -27,7 +31,9 @@ public interface SqlSource {
 	/**
 	 * 根据传入的参数对象，返回 BoundSql 对象
 	 *
-	 * @param parameterObject 参数对象
+   * @param parameterObject 入参对象，如果方法的入参为为单个基础对象且没有加 {@link Param} 注解
+   *    在该参数为对象本身，否则该参数为 {@link MapperMethod.ParamMap}
+   *    具体查看 {@link ParamNameResolver#getNamedParams(Object[])}
 	 * @return BoundSql 对象
 	 */
 	BoundSql getBoundSql(Object parameterObject);

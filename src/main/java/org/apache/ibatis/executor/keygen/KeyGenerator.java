@@ -15,8 +15,11 @@
  */
 package org.apache.ibatis.executor.keygen;
 
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
+import org.apache.ibatis.reflection.ParamNameResolver;
 
 import java.sql.Statement;
 
@@ -31,7 +34,9 @@ public interface KeyGenerator {
    * @param executor 执行器
    * @param ms MappedStatement 对象
    * @param stmt Statement对象
-   * @param parameter 入参对象
+   * @param parameter 入参对象，如果方法的入参为为单个基础对象且没有加 {@link Param} 注解
+   *    在该参数为对象本身，否则该参数为 {@link MapperMethod.ParamMap}
+   *    具体查看 {@link ParamNameResolver#getNamedParams(Object[])}
    */
   void processAfter(Executor executor, MappedStatement ms, Statement stmt, Object parameter);
 
@@ -40,7 +45,9 @@ public interface KeyGenerator {
    * @param executor 执行器
    * @param ms MappedStatement 对象
    * @param stmt Statement对象
-   * @param parameter 入参对象
+   * @param parameter 入参对象，如果方法的入参为为单个基础对象且没有加 {@link Param} 注解
+   *    在该参数为对象本身，否则该参数为 {@link MapperMethod.ParamMap}
+   *    具体查看 {@link ParamNameResolver#getNamedParams(Object[])}
    */
   void processBefore(Executor executor, MappedStatement ms, Statement stmt, Object parameter);
 

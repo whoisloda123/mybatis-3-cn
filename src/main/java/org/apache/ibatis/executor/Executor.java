@@ -15,11 +15,14 @@
  */
 package org.apache.ibatis.executor;
 
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.cursor.Cursor;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.reflection.MetaObject;
+import org.apache.ibatis.reflection.ParamNameResolver;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.transaction.Transaction;
@@ -43,7 +46,9 @@ public interface Executor {
    * 更新或者插入或者删除
    * 由传入的 MappedStatement 的 SQL 所决定
    * @param ms sql语句对应的对象
-   * @param parameter 入参对象
+   * @param parameter 入参对象，如果方法的入参为为单个基础对象且没有加 {@link Param} 注解
+   *    在该参数为对象本身，否则该参数为 {@link MapperMethod.ParamMap}
+   *    具体查看 {@link ParamNameResolver#getNamedParams(Object[])}
    * @return 更新结果数量
    * @throws SQLException 如果执行异常
    */
@@ -52,7 +57,9 @@ public interface Executor {
   /**
    * 查询列表
    * @param ms sql语句对应的对象
-   * @param parameter 入参对象
+   * @param parameter 入参对象，如果方法的入参为为单个基础对象且没有加 {@link Param} 注解
+   *    在该参数为对象本身，否则该参数为 {@link MapperMethod.ParamMap}
+   *    具体查看 {@link ParamNameResolver#getNamedParams(Object[])}
    * @param rowBounds 分页参数
    * @param resultHandler 查询结果处理器，可以为 {@code null}
    * @param cacheKey 一级/二级缓存key
@@ -68,7 +75,9 @@ public interface Executor {
   /**
    * 查询列表
    * @param ms sql语句对应的对象
-   * @param parameter 入参对象
+   * @param parameter 入参对象，如果方法的入参为为单个基础对象且没有加 {@link Param} 注解
+   *    在该参数为对象本身，否则该参数为 {@link MapperMethod.ParamMap}
+   *    具体查看 {@link ParamNameResolver#getNamedParams(Object[])}
    * @param rowBounds 分页参数
    * @param resultHandler 查询结果处理器，可以为 {@code null}
    * @param <E> 结果类型
@@ -81,7 +90,9 @@ public interface Executor {
   /**
    * 查询，返回 Cursor 游标
    * @param ms sql语句对应的对象
-   * @param parameter 入参对象
+   * @param parameter 入参对象，如果方法的入参为为单个基础对象且没有加 {@link Param} 注解
+   *    在该参数为对象本身，否则该参数为 {@link MapperMethod.ParamMap}
+   *    具体查看 {@link ParamNameResolver#getNamedParams(Object[])}
    * @param rowBounds 分页参数
    * @param <E> 结果类型
    * @return 如果执行异常
@@ -113,7 +124,9 @@ public interface Executor {
   /**
    * 创建 CacheKey 对象
    * @param ms sql语句对应的对象
-   * @param parameterObject 入参对象
+   * @param parameterObject 入参对象，如果方法的入参为为单个基础对象且没有加 {@link Param} 注解
+   *    在该参数为对象本身，否则该参数为 {@link MapperMethod.ParamMap}
+   *    具体查看 {@link ParamNameResolver#getNamedParams(Object[])}
    * @param rowBounds 分页参数
    * @param boundSql 对应实际的sql语句对象
    * @return 缓存key对象
