@@ -72,7 +72,7 @@ public class MybatisTest {
 
   @Test
   public void testInsertUseGeneratedKeys() {
-    SqlSession sqlSession = this.sqlSessionFactory.openSession();
+    SqlSession sqlSession = this.sqlSessionFactory.openSession(true);
     ActorMapper mapper = sqlSession.getMapper(ActorMapper.class);
     Actor actor = new Actor();
     actor.setFirstName("LIU");

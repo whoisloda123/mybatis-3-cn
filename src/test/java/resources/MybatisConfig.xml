@@ -20,8 +20,13 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-  <properties resource="db.properties"/>
+  <!--  属性配置-->
+  <properties resource="db.properties">
+    <property name="username1" value="dev_user"/>
+    <property name="password1" value="F2Fa3!33TYyg"/>
+  </properties>
 
+  <!--  mybatis全局设置-->
   <settings>
     <!-- 开启二级缓存总开关 -->
     <setting name="cacheEnabled" value="true"/>
@@ -30,6 +35,8 @@
     <setting name="lazyLoadingEnabled" value="true"/>
     <!--将积极加载修改为消极加载-->
     <setting name="aggressiveLazyLoading" value="false"/>
+    <!--    设置一级缓存类型，默认为SESSION,而该类型会是一级缓存失效-->
+    <setting name="localCacheScope" value="STATEMENT"/>
   </settings>
 
   <!-- 简化映射文件中parameterType和ResultType中的POJO类型名称编写-->
@@ -44,7 +51,9 @@
 
   <environments default="development">
     <environment id="development">
+      <!--      type为TransactionFactory子类的别名或者类名-->
       <transactionManager type="JDBC"/>
+      <!--      type为DataSourceFactory子类的别名或者类名-->
       <dataSource type="POOLED">
         <property name="driver" value="${db.driver}"/>
         <property name="url" value="${db.url}"/>

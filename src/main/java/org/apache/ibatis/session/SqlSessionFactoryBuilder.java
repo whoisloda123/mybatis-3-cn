@@ -15,43 +15,60 @@
  */
 package org.apache.ibatis.session;
 
+import org.apache.ibatis.builder.xml.XMLConfigBuilder;
+import org.apache.ibatis.exceptions.ExceptionFactory;
+import org.apache.ibatis.executor.ErrorContext;
+import org.apache.ibatis.mapping.Environment;
+import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.Properties;
 
-import org.apache.ibatis.builder.xml.XMLConfigBuilder;
-import org.apache.ibatis.exceptions.ExceptionFactory;
-import org.apache.ibatis.executor.ErrorContext;
-import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
-
 /**
- * Builds {@link SqlSession} instances.
- *
+ * {@link SqlSessionFactory} builder类，使用mybatis时候，一般使用的第一个类
  * @author Clinton Begin
  */
 public class SqlSessionFactoryBuilder {
 
-	public SqlSessionFactory build(Reader reader) {
-		return build(reader, null, null);
-	}
+  /**
+   * 创建 {@link SqlSession} 的工厂类 {@code SqlSessionFactory}
+   * @param reader reader流，配置文件来源
+   * @return {@link SqlSession} 的工厂类
+   */
+  public SqlSessionFactory build(Reader reader) {
+    return build(reader, null, null);
+  }
 
-	public SqlSessionFactory build(Reader reader, String environment) {
-		return build(reader, environment, null);
-	}
+  /**
+   * 创建 {@link SqlSession} 的工厂类 {@code SqlSessionFactory}
+   * @param reader reader流，配置文件来源
+   * @param environment {@link Environment} 的环境id
+   * @return {@link SqlSession} 的工厂类
+   */
+  public SqlSessionFactory build(Reader reader, String environment) {
+    return build(reader, environment, null);
+  }
 
-	public SqlSessionFactory build(Reader reader, Properties properties) {
-		return build(reader, null, properties);
-	}
+  /**
+   * 创建 {@link SqlSession} 的工厂类 {@code SqlSessionFactory}
+   * @param reader reader流，配置文件来源
+   * @param properties Properties 变量
+   * @return {@link SqlSession} 的工厂类
+   */
+  public SqlSessionFactory build(Reader reader, Properties properties) {
+    return build(reader, null, properties);
+  }
 
-	/**
-	 * 构造 SqlSessionFactory 对象
-	 *
-	 * @param reader Reader 对象
-	 * @param environment 环境
-	 * @param properties Properties 变量
-	 * @return SqlSessionFactory 对象
-	 */
+  /**
+   * 构造 SqlSessionFactory 对象
+   *
+   * @param reader Reader 对象，配置文件来源
+   * @param environment {@link Environment} 的环境id
+   * @param properties Properties 变量
+   * @return SqlSessionFactory 对象
+   */
 	public SqlSessionFactory build(Reader reader, String environment, Properties properties) {
 		try {
 			/*
@@ -68,45 +85,74 @@ public class SqlSessionFactoryBuilder {
 		} catch (Exception e) {
 			throw ExceptionFactory.wrapException("Error building SqlSession.", e);
 		} finally {
-			ErrorContext.instance().reset();
-			try {
-				reader.close();
-			} catch (IOException e) {
-				// Intentionally ignore. Prefer previous error.
-			}
-		}
-	}
+      ErrorContext.instance().reset();
+      try {
+        reader.close();
+      } catch (IOException e) {
+        // Intentionally ignore. Prefer previous error.
+      }
+    }
+  }
 
-	public SqlSessionFactory build(InputStream inputStream) {
-		return build(inputStream, null, null);
-	}
+  /**
+   * 创建 {@link SqlSession} 的工厂类 {@code SqlSessionFactory}
+   * @param inputStream input流，配置文件来源
+   * @return {@link SqlSession} 的工厂类
+   */
+  public SqlSessionFactory build(InputStream inputStream) {
+    return build(inputStream, null, null);
+  }
 
-	public SqlSessionFactory build(InputStream inputStream, String environment) {
-		return build(inputStream, environment, null);
-	}
+  /**
+   * 创建 {@link SqlSession} 的工厂类 {@code SqlSessionFactory}
+   * @param inputStream input流，配置文件来源
+   * @param environment {@link Environment} 的环境id
+   * @return {@link SqlSession} 的工厂类
+   */
+  public SqlSessionFactory build(InputStream inputStream, String environment) {
+    return build(inputStream, environment, null);
+  }
 
-	public SqlSessionFactory build(InputStream inputStream, Properties properties) {
-		return build(inputStream, null, properties);
-	}
+  /**
+   * 创建 {@link SqlSession} 的工厂类 {@code SqlSessionFactory}
+   * @param inputStream inputStream流
+   * @param properties Properties 变量
+   * @return {@link SqlSession} 的工厂类
+   */
+  public SqlSessionFactory build(InputStream inputStream, Properties properties) {
+    return build(inputStream, null, properties);
+  }
 
-	public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {
-		try {
-			XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);
-			return build(parser.parse());
-		} catch (Exception e) {
-			throw ExceptionFactory.wrapException("Error building SqlSession.", e);
-		} finally {
-			ErrorContext.instance().reset();
-			try {
-				inputStream.close();
-			} catch (IOException e) {
-				// Intentionally ignore. Prefer previous error.
-			}
-		}
-	}
+  /**
+   * 创建 {@link SqlSession} 的工厂类 {@code SqlSessionFactory}
+   * @param inputStream inputStream流，配置文件来源
+   * @param properties Properties 变量
+   * @param environment {@link Environment} 的环境id
+   * @return {@link SqlSession} 的工厂类
+   */
+  public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {
+    try {
+      XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);
+      return build(parser.parse());
+    } catch (Exception e) {
+      throw ExceptionFactory.wrapException("Error building SqlSession.", e);
+    } finally {
+      ErrorContext.instance().reset();
+      try {
+        inputStream.close();
+      } catch (IOException e) {
+        // Intentionally ignore. Prefer previous error.
+      }
+    }
+  }
 
-	public SqlSessionFactory build(Configuration config) {
-		return new DefaultSqlSessionFactory(config);
-	}
+  /**
+   * 创建 {@link SqlSession} 的工厂类 {@code SqlSessionFactory}
+   * @param config 配置类
+   * @return {@link SqlSession} 的工厂类
+   */
+  public SqlSessionFactory build(Configuration config) {
+    return new DefaultSqlSessionFactory(config);
+  }
 
 }

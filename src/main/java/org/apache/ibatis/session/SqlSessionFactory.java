@@ -16,17 +16,22 @@
 package org.apache.ibatis.session;
 
 import org.apache.ibatis.executor.Executor;
+import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 
 import java.sql.Connection;
 
 /**
- * Creates an {@link SqlSession} out of a connection or a DataSource
+ * {@link SqlSession} 工厂类，一个数据源应对一个该类，通过 {@link SqlSessionFactoryBuilder}
+ * 类创建，默认实现类 {@link DefaultSqlSessionFactory}
  * @author Clinton Begin
+ * @see SqlSessionFactoryBuilder
+ * @see DefaultSqlSessionFactory
  */
 public interface SqlSessionFactory {
 
   /**
-   * 创建sql主要操作接口 {@code SqlSession}
+   * 创建sql主要操作接口 {@code SqlSession},在 {@code SqlSession} 使用之后
+   * 应该调用将其关闭,不自动提交事务
    * @return 用户操作sql接口
    */
   SqlSession openSession();
